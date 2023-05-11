@@ -14,13 +14,52 @@ export const postApi = createApi({
       }),
     }),
     getPostById: builder.query({
-      query: (id) => ({
-        url: `posts/${id}`,
-        method: "GET",
-      }),
+      query: (id) => {
+        console.log(id); // to verify that we are getting correct id which we are passing in useGetPostByIdQuery hook in App.js
+        return {
+          url: `posts/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    getPostByLimit: builder.query({
+      query: (limit) => {
+        console.log(limit);
+        return {
+          url: `posts?_limit=${limit}`,
+          method: "GET",
+        };
+      },
+    }),
+    deletePost: builder.mutation({
+      query: (id) => {
+        console.log("Delete id:", id);
+        return {
+          url: `posts/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
+    createPost: builder.mutation({
+      query: (newPost) => {
+        console.log("Create Post", newPost);
+        return {
+          url: `posts`,
+          method: "POST",
+          body: newPost,
+          headers: {
+            "Content-type": "application/json;",
+          },
+        };
+      },
     }),
   }),
 });
 
-export const { useGetAllPostQuery, useGetPostByIdQuery } = postApi;
+export const {
+  useGetAllPostQuery,
+  useGetPostByIdQuery,
+  useGetPostByLimitQuery,
+  useDeletePostMutation,
+} = postApi;
 // we will use this hook useGetAllPostQuery wherever we want to fetch data.
