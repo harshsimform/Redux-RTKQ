@@ -4,6 +4,8 @@ import {
   useGetPostByIdQuery,
   useGetPostByLimitQuery,
   useDeletePostMutation,
+  useCreatePostMutation,
+  useUpdatePostMutation,
 } from "./services/Post";
 
 function App() {
@@ -18,7 +20,24 @@ function App() {
   // console.log(userInfoLimit);
 
   const [deletePost, userDelete] = useDeletePostMutation();
-  console.log(userDelete);
+  // console.log(userDelete);
+
+  // const [createPost, userCreate] = useCreatePostMutation();
+  // console.log(userCreate);
+  // const newPost = {
+  //   title: "newTitle",
+  //   body: "newBody",
+  //   userId: 1,
+  // };
+
+  const [updatePost, userUpdate] = useUpdatePostMutation();
+  console.log(userUpdate);
+  const updatePostData = {
+    id: 1,
+    title: "updateTitle",
+    bode: "updateBody",
+    userId: 1,
+  };
 
   if (responseInfo.isLoading) return <div className="App">Loading...</div>;
   if (responseInfo.isError)
@@ -60,11 +79,28 @@ function App() {
         );
       })} */}
       {/* Delete User  */}
-      <div className="App">
+      {/* <div className="App">
         <button onClick={() => deletePost(2)}>Delete Post</button>
+      </div> */}
+      {/* Create User  */}
+      {/* <div className="App">
+        <button onClick={() => createPost(newPost)}>Create Post</button>
+      </div> */}
+      {/* Update User  */}
+      <div className="App">
+        <button onClick={() => updatePost(updatePostData)}>Update Post</button>
       </div>
     </>
   );
 }
 
 export default App;
+
+// data - The returned result if present.
+// error - The error result if present.
+// isUninitialized - When true, indicates that the query has not started yet.
+// isLoading - When true, indicates that the query is currently loading for the first time, and has no data yet. This will be true for the first request fired off, but not for subsequent requests.
+// isFetching - When true, indicates that the query is currently fetching, but might have data from an earlier request. This will be true for both the first request fired off, as well as subsequent requests.
+// isSuccess - When true, indicates that the query has data from a successful request.
+// isError - When true, indicates that the query is in an error state.
+// refetch - A function to force refetch the query
